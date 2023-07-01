@@ -16,7 +16,58 @@
   <header id="header"></header>
 
   <main>
-    <div id="app" class="container"></div>
+    <div id="app" class="container">
+      <h1>Productos</h1>
+      <section v-if="error">
+        <p>Lo sentimos, no podemos mostrarte los datos solicitados en este momento</p>
+      </section>
+      <section v-else>
+        <section v-if="cargando">
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="spinner-border text-primary spinner-border-sm"
+                role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+        </section>
+        <section v-else>
+          <a class="btn btn-success" href="producto_nuevo.html">Agregar producto</a>
+
+          <div class="table-responsive" style="margin-top: 1rem;">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Stock</th>
+                  <th scope="col">Imagen</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="p in productos">
+                  <td scope="row">{{p.id}}</td>
+                  <td>{{p.nombre}}</td>
+                  <td>{{p.precio}}</td>
+                  <td>{{p.stock}}</td>
+                  <td>
+                    <img :src="p.imagen" :alt="p.nombre" width="80" height="80">
+                  </td>
+                  <td>
+                    <a class="btn btn-primary" href="producto_editar.html">Editar</a>
+                    <button type="button" class="btn btn-danger" v-on:click="eliminar(p.id)">Eliminar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+      </section>
+      
+      
+    </div>
   </main>
 
   <footer></footer>
